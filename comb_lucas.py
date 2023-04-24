@@ -21,7 +21,7 @@ def comb_lucas(n, m, p, q):
     NMR = [ (n//p**j % mod, m//p**j % mod, r//p**j % mod) for j in range(d) ] # list of tuples: (N_i, M_i, R_i)
 
     modified_factorials = [1] # pre-compute modified factorials. (x!)_p is the product of all integers <= x that are not divisible by p 
-    for i in range(1, max(max(NMR)) + 1):
+    for i in range(1, max(map(max, NMR)) + 1):
         if (i % p == 0): modified_factorials.append(modified_factorials[i-1])
         else: modified_factorials.append( modified_factorials[i-1] * i % mod )
 
@@ -29,3 +29,12 @@ def comb_lucas(n, m, p, q):
     for N_i, M_i, R_i in NMR:
         ans = ans * modified_factorials[N_i] * pow(modified_factorials[R_i] * modified_factorials[M_i], -1, mod) % mod
     return ans
+
+
+# import math
+# n = 2522153
+# m = 254121
+# p = 97
+# q = 3
+# comb_lucas(n,m,p,q)
+# math.comb(n,m) % p**q
